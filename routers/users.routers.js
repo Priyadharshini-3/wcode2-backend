@@ -2,7 +2,7 @@ import express from "express";
 import { CreateUsers, getUserByName } from "../service/users.service.js";
 import bcrypt from 'bcrypt'
 import jwt from "jsonwebtoken";
-import { auth } from "../middleware/auth.js";
+// import { auth } from "../middleware/auth.js";
 const router = express.Router()
 
 async function getHashedPassword(password) {

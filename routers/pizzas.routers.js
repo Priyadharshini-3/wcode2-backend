@@ -9,12 +9,12 @@ import {
     DeleteMenu,
 } from '../service/pizzas.service.js'
 import * as dotenv from 'dotenv'
-import { auth } from '../middleware/auth.js'
+// import { auth } from '../middleware/auth.js'
 dotenv.config()
 const router = express.Router()
 
 
-router.get('/menu', auth , async function (request, response) {
+router.get('/menu',  async function (request, response) {
     const result = await getMenu()
     response.send(result);
 })
@@ -42,7 +42,7 @@ router.delete("/menu/:id", async function (request, response) {
     const { id } = request.params;
     const result = await DeleteMenu(id);
     console.log(result);
-    result.deletedCount > 0 ? response.send({ msg: 'Movie was deleted successfully' }) : response.status(404).send({ msg: "MovieNot Found" });
+    result.deletedCount > 0 ? response.send({ msg: 'Pizza was deleted successfully' }) : response.status(404).send({ msg: "MovieNot Found" });
 });
 
 export default router
