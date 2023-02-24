@@ -19,7 +19,7 @@ router.get('/menu', auth , async function (request, response) {
     response.send(result);
 })
 
-router.get('/menu/:id',auth, async function (request, response) {
+router.get('/menu/:id', async function (request, response) {
     const { id } = request.params;
     const result = await getMenubyId(id)
     response.send(result);
@@ -37,27 +37,6 @@ router.post("/add/menu", async function (request, response) {
     const result = await addMenubyId(data)
     response.send(result)
 })
-router.post("/menu/send/", auth, async function(request,response){
-    const { email, name, quantity, total} = request.body
-    const mailOptions = {
-      from:process.env.EMAIL,
-      to:email,
-      subject:"Sending Mail Regarding Tickets",
-      text:`
-      Hi ${name},
-      You Ordered Some Items from Our Shop and Your Quantity is ${quantity} and the Total is ${total} Payment is Successfull and Your Delivery expected in 03/03/2023`
-     }
-     
-     transporter.sendMail(mailOptions,(error,info) => {
-      if(error){
-        console.log("error",error)
-      }else{
-        console.log('Email Sent Successfully', info.response)
-        response.status(201).json({status:201,info})
-      }
-     })
-  
-    })
 
 router.delete("/menu/:id", async function (request, response) {
     const { id } = request.params;
