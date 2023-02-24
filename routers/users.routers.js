@@ -1,9 +1,19 @@
 import express from "express";
+import nodemailer from "nodemailer"
 import { CreateUsers, getUserByName } from "../service/users.service.js";
 import bcrypt from 'bcrypt'
 import jwt from "jsonwebtoken";
+// import { auth } from "../middleware/auth.js";
 const router = express.Router()
 
+const transporter = nodemailer.createTransport({
+    service:"gmail",
+    auth:{
+      user:process.env.EMAIL,
+      pass:process.env.PASSWORD,
+    }
+  })
+  
 async function getHashedPassword(password) {
     const No_of_Rounds = 10;
     const salt = await bcrypt.genSalt(No_of_Rounds);
@@ -54,6 +64,13 @@ router.post("/login", async function (request, response) {
         }
     }
 });
+router.get('/getDetails/:email', async function(request,response){
+    let {email} = request.params
+    console.log(request.params)
+    const result = await getUserByEmail(email);
+    console.log(result)
+    response.send(result)
+  })
 
 
 export default router;
